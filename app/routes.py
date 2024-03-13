@@ -12,9 +12,11 @@ router = APIRouter()
 def ola_mundo(): #Response
     return {"Dev":"Soluções"}
 
-@router.get("/obtem_dados", response_model = list[ProdutosSchema])
+@router.get("/obtem_dados", response_model = List[ProdutosSchema])
 def listar_produtos(db:Session = Depends(get_db)):
-    return db.query(Produto).all() #Select * FROM produtos
+    produtos =  db.query(Produto).all() #Select * FROM produtos
+    produtos_dict = [produto.__dict__ for produto in produtos]
+    return produtos_dict
 
 @router.post("/inseri_dados", response_model=List[ProdutosSchema])
 def inserir_produto(produto: ProdutosSchema, db: Session = Depends(get_db)):
