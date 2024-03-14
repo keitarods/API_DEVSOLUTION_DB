@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Float
+from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Float, DATETIME
 from sqlalchemy.orm import sessionmaker, declarative_base
 
 Base = declarative_base()
@@ -16,3 +16,5 @@ class Produto(Base):
     col7 = Column(Integer)
     col8 = Column(Integer)
     col9 = Column(String)
+    data_hora_post = Column(DATETIME)
+

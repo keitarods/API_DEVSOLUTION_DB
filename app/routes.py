@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 
-from .schema import ProdutosSchema
+from .schema import ProdutosSchema, ProdutosSchema2
 from .config import Session_local, get_db
 from .model import Produto
 
@@ -19,7 +19,7 @@ def listar_produtos(db:Session = Depends(get_db)):
     return produtos_dict
 
 @router.post("/inseri_dados", response_model=List[ProdutosSchema])
-def inserir_produto(produto: ProdutosSchema, db: Session = Depends(get_db)):
+def inserir_produto(produto: ProdutosSchema2, db: Session = Depends(get_db)):
     try:
         # Criando uma instância do modelo SQLAlchemy (Produto)
         db_produto = Produto(**produto.dict())
