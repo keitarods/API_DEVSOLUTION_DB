@@ -1,7 +1,7 @@
 import requests
 
 # Defina a URL do seu endpoint FastAPI
-url = "http://127.0.0.1:8000/inseri_dados"
+url = "https://api-devsolution-db.onrender.com/inseri_dados"
 
 # Dados a serem enviados (substitua conforme necessário)
 dados = {"g":"g",

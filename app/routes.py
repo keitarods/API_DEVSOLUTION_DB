@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from sqlalchemy.sql import desc
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 
@@ -9,13 +10,19 @@ from .model import Produto
 router = APIRouter()
 
 @router.get("/") #Request
-def ola_mundo(): #Response
+def inicio(): #Response
     return {"Dev":"Soluções"}
 
 @router.get("/obtem_dados", response_model = List[ProdutosSchema])
 def listar_produtos(db:Session = Depends(get_db)):
     produtos =  db.query(Produto).all() #Select * FROM produtos
     produtos_dict = [produto.__dict__ for produto in produtos]
+    return produtos_dict
+
+@router.get("/obtem_ultimo", response_model = List[ProdutosSchema])
+def listar_produtos2(db:Session = Depends(get_db)):
+    produtos =  db.query(Produto).order_by(desc(Produto.id)).first()
+    produtos_dict = [produtos.__dict__] #SELECT * FROM produtos ORDER BY id DESC LIMIT 1
     return produtos_dict
 
 @router.post("/inseri_dados", response_model=List[ProdutosSchema])
